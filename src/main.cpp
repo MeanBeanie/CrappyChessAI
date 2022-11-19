@@ -6,9 +6,11 @@
 struct vec2{
     int x;
     int y;
-    vec2();
+    vec2(){
+        // Error Handling
+    }
     vec2(int _x, int _y):x(_x), y(_y) {};
-};
+} typedef vec2;
 
 enum PieceType{
     Pawn,
@@ -35,7 +37,9 @@ class Piece{
     public:
         PieceType type;
         PieceColor color;
-        Piece();
+        Piece(){
+            // Error Handling
+        }
         Piece(PieceType _t, PieceColor _c):type(_t), color(_c) {};
         Piece(Piece* p):type(p->type), color(p->color) {};
 };
@@ -68,6 +72,7 @@ Piece cTP(char c){
     else if(c == 'Q' || c == 'q'){
         result.type = Queen;
     }
+    return result;
 }
 
 // returns true if given value between left and right bounds
@@ -100,19 +105,19 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
     for(int r = 0; r < 8; r++){
         for(int c = 0; c < 8; c++){
             Piece piece = cTP(board[r][c]);
+            Move move;
+            move.srow = r;
+            move.scol = c;
             switch(piece.type){
-                Move move;
-                move.srow = r;
-                move.scol = c;
                 case Pawn:
-                    if(piece.color == White){
-                        if(r != 7 && (board[r+1][c] == '-' || between((int)board[r+1][c], 97, 122, true))){
-                            move.nrow = r+1;
-                            move.ncol = c;
-                            result.push_back(move);
-                        }
-                    }
-                    else if(piece.color == Black){
+                    // if(piece.color == White){
+                    //     if(r != 7 && (board[r+1][c] == '-' || between((int)board[r+1][c], 97, 122, true))){
+                    //         move.nrow = r+1;
+                    //         move.ncol = c;
+                    //         result.push_back(move);
+                    //     }
+                    // }
+                    if(piece.color == Black){
                         if(r != 0 && (board[r-1][c] == '-' || between((int)board[r-1][c], 65, 90, true))){
                             move.nrow = r-1;
                             move.ncol = c;
@@ -121,48 +126,48 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                     }
                     break;
                 case Knight:
-                    if(piece.color == White){
-                        if(r <= 5 && c != 7 && (board[r+2][c+1] == '-' || between((int)board[r+2][c+1], 97, 122, true))){
-                            move.nrow = r+2;
-                            move.ncol = c+1;
-                            result.push_back(move);
-                        }
-                        if(r <= 5 && c != 0 && (board[r+2][c-1] == '-' || between((int)board[r+2][c-1], 97, 122, true))){
-                            move.nrow = r+2;
-                            move.ncol = c-1;
-                            result.push_back(move);
-                        }
-                        if(r >= 2 && c != 7 && (board[r-2][c+1] == '-' || between((int)board[r-2][c+1], 97, 122, true))){
-                            move.nrow = r-2;
-                            move.ncol = c+1;
-                            result.push_back(move);
-                        }
-                        if(r >= 2 && c != 0 && (board[r-2][c-1] == '-' || between((int)board[r-2][c-1], 97, 122, true))){
-                            move.nrow = r-2;
-                            move.ncol = c-1;
-                            result.push_back(move);
-                        }
-                        if(r + 1 < 8 && c + 2 < 8 && (board[r+1][c+2] == '-' || between((int)board[r+1][c+2], 97, 122, true))){
-                           move.nrow = r+1;
-                           move.ncol = c+2;
-                           result.push_back(move);
-                        }
-                        if(r - 1 > 0 && c + 2 < 8 && (board[r-1][c+2] == '-' || between((int)board[r-1][c+2], 97, 122, true))){
-                            move.nrow = r-1;
-                            move.ncol = c+2;
-                            result.push_back(move);
-                        }
-                        if(r + 1 < 8 && c - 2 < 8 && (board[r+1][c-2] == '-' || between((int)board[r+1][c-2], 97, 122, true))){
-                            move.nrow = r+1;
-                            move.ncol = c-2;
-                            result.push_back(move);
-                        }
-                        if(r - 1 > 0 && c - 2 < 8 && (board[r-1][c-2] == '-' || between((int)board[r-1][c-2], 97, 122, true))){
-                            move.nrow = r-1;
-                            move.ncol = c-2;
-                        }
-                    }
-                    else if(piece.color == Black){
+                    // if(piece.color == White){
+                    //     if(r <= 5 && c != 7 && (board[r+2][c+1] == '-' || between((int)board[r+2][c+1], 97, 122, true))){
+                    //         move.nrow = r+2;
+                    //         move.ncol = c+1;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r <= 5 && c != 0 && (board[r+2][c-1] == '-' || between((int)board[r+2][c-1], 97, 122, true))){
+                    //         move.nrow = r+2;
+                    //         move.ncol = c-1;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r >= 2 && c != 7 && (board[r-2][c+1] == '-' || between((int)board[r-2][c+1], 97, 122, true))){
+                    //         move.nrow = r-2;
+                    //         move.ncol = c+1;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r >= 2 && c != 0 && (board[r-2][c-1] == '-' || between((int)board[r-2][c-1], 97, 122, true))){
+                    //         move.nrow = r-2;
+                    //         move.ncol = c-1;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r + 1 < 8 && c + 2 < 8 && (board[r+1][c+2] == '-' || between((int)board[r+1][c+2], 97, 122, true))){
+                    //        move.nrow = r+1;
+                    //        move.ncol = c+2;
+                    //        result.push_back(move);
+                    //     }
+                    //     if(r - 1 > 0 && c + 2 < 8 && (board[r-1][c+2] == '-' || between((int)board[r-1][c+2], 97, 122, true))){
+                    //         move.nrow = r-1;
+                    //         move.ncol = c+2;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r + 1 < 8 && c - 2 < 8 && (board[r+1][c-2] == '-' || between((int)board[r+1][c-2], 97, 122, true))){
+                    //         move.nrow = r+1;
+                    //         move.ncol = c-2;
+                    //         result.push_back(move);
+                    //     }
+                    //     if(r - 1 > 0 && c - 2 < 8 && (board[r-1][c-2] == '-' || between((int)board[r-1][c-2], 97, 122, true))){
+                    //         move.nrow = r-1;
+                    //         move.ncol = c-2;
+                    //     }
+                    // }
+                    if(piece.color == Black){
                         if(r <= 5 && c != 7 && (board[r+2][c+1] == '-' || between((int)board[r+2][c+1], 65, 90, true))){
                             move.nrow = r+2;
                             move.ncol = c+1;
@@ -205,10 +210,44 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                     }
                     break;
                 case Rook:
-                    if(piece.color == White){
+                    // if(piece.color == White){
+                    //     if(pTE(r).x != 0){
+                    //         for(int i = 1; i <= pTE(r).x; i++){
+                    //             if(board[r - i][c] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                    //                 move.nrow = r - i;
+                    //                 move.ncol = c;
+                    //             }
+                    //         }
+                    //     }
+                    //     if(pTE(r).y != 0){
+                    //         for(int i = 1; i <= pTE(r).y; i++){
+                    //             if(board[r + i][c] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                    //                 move.nrow = r + i;
+                    //                 move.ncol = c;
+                    //             }
+                    //         }
+                    //     }
+                    //     if(pTE(c).x != 0){
+                    //         for(int i = 1; i<= pTE(c).x; i++){
+                    //             if(board[r][c - i] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                    //                 move.nrow = r;
+                    //                 move.ncol = c - i;
+                    //             }
+                    //         }
+                    //     }
+                    //     if(pTE(c).y != 0){
+                    //         for(int i = 1; i <= pTE(c).y; i++){
+                    //             if(board[r][c + i] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                    //                 move.nrow = r;
+                    //                 move.ncol = c + i;
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    if(piece.color == Black){
                         if(pTE(r).x != 0){
                             for(int i = 1; i <= pTE(r).x; i++){
-                                if(board[r - i][c] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                                if(board[r - i][c] == '-' || !isBlack((int)board[r - i][c])){
                                     move.nrow = r - i;
                                     move.ncol = c;
                                 }
@@ -216,7 +255,7 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(r).y != 0){
                             for(int i = 1; i <= pTE(r).y; i++){
-                                if(board[r + i][c] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                                if(board[r + i][c] == '-' || !isBlack((int)board[r + i][c])){
                                     move.nrow = r + i;
                                     move.ncol = c;
                                 }
@@ -224,7 +263,7 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(c).x != 0){
                             for(int i = 1; i<= pTE(c).x; i++){
-                                if(board[r][c - i] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                                if(board[r][c - i] == '-' || !isBlack((int)board[r][c - i])){
                                     move.nrow = r;
                                     move.ncol = c - i;
                                 }
@@ -232,17 +271,100 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(c).y != 0){
                             for(int i = 1; i <= pTE(c).y; i++){
-                                if(board[r][c + i] == '-' || between((int)board[r+1][c], 97, 122, true)){
+                                if(board[r][c + i] == '-' || !isBlack((int)board[r][c + i])){
                                     move.nrow = r;
                                     move.ncol = c + i;
                                 }
                             }
                         }
                     }
-                    else if(piece.color == Black){
+                    break;
+                case King:
+                    if(piece.color == Black){
+                        if(r > 0 && (board[r-1][c] == '-' || !isBlack((int)board[r-1][c]))){
+                            move.nrow = r - 1;
+                            move.ncol = c;
+                            result.push_back(move);
+                        }
+                        if(r < 7 && (board[r+1][c] == '-' || !isBlack((int)board[r+1][c]))){
+                            move.nrow = r+1;
+                            move.ncol = c;
+                            result.push_back(move);
+                        }
+                        if(c > 0 && (board[r][c-1] == '-' || !isBlack((int)board[r][c-1]))){
+                            move.nrow = r;
+                            move.ncol = c-1;
+                            result.push_back(move);
+                        }
+                        if(c < 7 && (board[r][c+1] == '-' || !isBlack((int)board[r][c+1]))){
+                            move.nrow = r;
+                            move.ncol = c+1;
+                            result.push_back(move);
+                        }
+                    }
+                    break;
+                case Bishop:
+                    if(piece.color == Black){
+                        int fr = r;
+                        int fc = c;
+                        while(pTE(fr).x != 0 && pTE(fc).y != 0){
+                            if(board[fr-1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                move.nrow = fr-1;
+                                move.ncol = fc+1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr-1][fc+1])){
+                                break;
+                            }
+                            fr--;
+                            fc++;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).y != 0 && pTE(fc).y != 0){
+                            if(board[fr+1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                move.nrow = fr+1;
+                                move.ncol = fc+1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr+1][fc+1])){
+                                break;
+                            }
+                            fr++;
+                            fc++;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).x != 0 || pTE(fc).x != 0){
+                            if(board[fr-1][fc-1] == '-' || !isBlack((int)board[fr-1][fc-1])){
+                                move.nrow = fr-1;
+                                move.ncol = fc-1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr-1][fc-1])){
+                                break;
+                            }
+                            fr--;
+                            fc--;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).y != 0 || pTE(fc).x != 0){
+                            if(board[fr+1][fc-1] == '-' || !isBlack((int)board[fr+1][fc-1])){
+                                move.nrow = fr+1;
+                                move.ncol = fc-1;
+                                result.push_back(move);
+                            }
+                            fr++;
+                            fc--;
+                        }
+                    }
+                    break;
+                case Queen:
+                    if(piece.color == Black){
                         if(pTE(r).x != 0){
                             for(int i = 1; i <= pTE(r).x; i++){
-                                if(board[r - i][c] == '-' || isBlack((int)board[r - i][c])){
+                                if(board[r - i][c] == '-' || !isBlack((int)board[r - i][c])){
                                     move.nrow = r - i;
                                     move.ncol = c;
                                 }
@@ -250,7 +372,7 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(r).y != 0){
                             for(int i = 1; i <= pTE(r).y; i++){
-                                if(board[r + i][c] == '-' || isBlack((int)board[r + i][c])){
+                                if(board[r + i][c] == '-' || !isBlack((int)board[r + i][c])){
                                     move.nrow = r + i;
                                     move.ncol = c;
                                 }
@@ -258,7 +380,7 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(c).x != 0){
                             for(int i = 1; i<= pTE(c).x; i++){
-                                if(board[r][c - i] == '-' || isBlack((int)board[r][c - i])){
+                                if(board[r][c - i] == '-' || !isBlack((int)board[r][c - i])){
                                     move.nrow = r;
                                     move.ncol = c - i;
                                 }
@@ -266,11 +388,64 @@ std::vector<Move> getPossibleMoves(char board[8][8]){
                         }
                         if(pTE(c).y != 0){
                             for(int i = 1; i <= pTE(c).y; i++){
-                                if(board[r][c + i] == '-' || isBlack((int)board[r][c + i])){
+                                if(board[r][c + i] == '-' || !isBlack((int)board[r][c + i])){
                                     move.nrow = r;
                                     move.ncol = c + i;
                                 }
                             }
+                        }
+                        int fr = r;
+                        int fc = c;
+                        while(pTE(fr).x != 0 && pTE(fc).y != 0){
+                            if(board[fr-1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                move.nrow = fr-1;
+                                move.ncol = fc+1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr-1][fc+1])){
+                                break;
+                            }
+                            fr--;
+                            fc++;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).y != 0 && pTE(fc).y != 0){
+                            if(board[fr+1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                move.nrow = fr+1;
+                                move.ncol = fc+1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr+1][fc+1])){
+                                break;
+                            }
+                            fr++;
+                            fc++;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).x != 0 || pTE(fc).x != 0){
+                            if(board[fr-1][fc-1] == '-' || !isBlack((int)board[fr-1][fc-1])){
+                                move.nrow = fr-1;
+                                move.ncol = fc-1;
+                                result.push_back(move);
+                            }
+                            else if(isBlack((int)board[fr-1][fc-1])){
+                                break;
+                            }
+                            fr--;
+                            fc--;
+                        }
+                        fr = r;
+                        fc = c;
+                        while(pTE(fr).y != 0 || pTE(fc).x != 0){
+                            if(board[fr+1][fc-1] == '-' || !isBlack((int)board[fr+1][fc-1])){
+                                move.nrow = fr+1;
+                                move.ncol = fc-1;
+                                result.push_back(move);
+                            }
+                            fr++;
+                            fc--;
                         }
                     }
                     break;
@@ -293,6 +468,8 @@ int main(){
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'r', 'b', 'n', 'k', 'q', 'n', 'b', 'r'}
     };
+
+    std::vector<Move> moves = getPossibleMoves(board);
 
     std::string s;
     for(int i = 0; i < 8; i++){
