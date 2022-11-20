@@ -193,45 +193,54 @@ class Board{
                             //     }
                             // }
                             if(piece.color == Black){
+                                printf("1");
                                 if(r <= 5 && c != 7 && (board[r+2][c+1] == '-' || between((int)board[r+2][c+1], 65, 90, true))){
                                     move.nrow = r+2;
                                     move.ncol = c+1;
                                     result.push_back(move);
                                 }
+                                printf("2");
                                 if(r <= 5 && c != 0 && (board[r+2][c-1] == '-' || between((int)board[r+2][c-1], 65, 90, true))){
                                     move.nrow = r+2;
                                     move.ncol = c-1;
                                     result.push_back(move);
                                 }
+                                printf("3");
                                 if(r >= 2 && c != 7 && (board[r-2][c+1] == '-' || between((int)board[r-2][c+1], 65, 90, true))){
                                     move.nrow = r-2;
                                     move.ncol = c+1;
                                     result.push_back(move);
                                 }
+                                printf("4");
                                 if(r >= 2 && c != 0 && (board[r-2][c-1] == '-' || between((int)board[r-2][c-1], 65, 90, true))){
                                     move.nrow = r-2;
                                     move.ncol = c-1;
                                     result.push_back(move);
                                 }
+                                printf("5");
                                 if(r + 1 < 8 && c + 2 < 8 && (board[r+1][c+2] == '-' || between((int)board[r+1][c+2], 65, 90, true))){
                                 move.nrow = r+1;
                                 move.ncol = c+2;
                                 result.push_back(move);
                                 }
+                                printf("6");
                                 if(r - 1 > 0 && c + 2 < 8 && (board[r-1][c+2] == '-' || between((int)board[r-1][c+2], 65, 90, true))){
                                     move.nrow = r-1;
                                     move.ncol = c+2;
                                     result.push_back(move);
                                 }
+                                printf("7");
                                 if(r + 1 < 8 && c - 2 < 8 && (board[r+1][c-2] == '-' || between((int)board[r+1][c-2], 65, 90, true))){
                                     move.nrow = r+1;
                                     move.ncol = c-2;
                                     result.push_back(move);
                                 }
+                                printf("8");
                                 if(r - 1 > 0 && c - 2 < 8 && (board[r-1][c-2] == '-' || between((int)board[r-1][c-2], 65, 90, true))){
                                     move.nrow = r-1;
                                     move.ncol = c-2;
                                 }
+                                printf("9");
                             }
                             break;
                         case Rook:
@@ -395,6 +404,9 @@ class Board{
                                         move.ncol = fc-1;
                                         result.push_back(move);
                                     }
+                                    if(isBlack((int)board[fr+1][fc-1])){
+                                        break;
+                                    }
                                     fr++;
                                     fc--;
                                 }
@@ -485,6 +497,9 @@ class Board{
                                         move.ncol = fc-1;
                                         result.push_back(move);
                                     }
+                                    if(isBlack((int)board[fr+1][fc-1])){
+                                        break;
+                                    }
                                     fr++;
                                     fc--;
                                 }
@@ -500,6 +515,7 @@ class Board{
         }
 
         std::vector<Move> getPossibleResponses(char board[8][8]){
+            std::cout << "started responses\n";
             std::vector<Move> result;
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
@@ -672,6 +688,9 @@ class Board{
                                         move.ncol = fc-1;
                                         result.push_back(move);
                                     }
+                                    if(isBlack((int)board[fr+1][fc-1])){
+                                        break;
+                                    }
                                     fr++;
                                     fc--;
                                 }
@@ -761,6 +780,9 @@ class Board{
                                         move.ncol = fc-1;
                                         result.push_back(move);
                                     }
+                                    if(isBlack((int)board[fr+1][fc-1])){
+                                        break;
+                                    }
                                     fr++;
                                     fc--;
                                 }
@@ -771,6 +793,7 @@ class Board{
                     }
                 }
             }
+            std::cout << "ended responses\n";
             return result;
         }
 
@@ -778,27 +801,44 @@ class Board{
             std::cout << "Started Legal Moves\n";
             std::vector<Move> result;
             std::vector<Move> possibleMoves = getPossibleMoves();
-            std::cout << "possibleMoves.size = " << possibleMoves.size() << "\n";
-            for(Move move : possibleMoves){
+            printf("-1\n");
+            // std::cout << "possibleMoves.size = " << possibleMoves.size() << "\n";
+            printf("0\n");
+            for(int m = 0; m < possibleMoves.size(); m++){
+                printf("1\n");
+                Move moove = possibleMoves.at(m);
+                printf("2\n");
                 char tempBoard[8][8];
-                for(int i = 0; i < 8; i++){
-                    for(int j = 0; j < 8; j++){
+                printf("3\n");
+                for(int i = 0; i < 8; ++i){
+                    printf("4\n");
+                    for(int j = 0; j < 8; ++j){
+                        printf("5\n");
+                        std::cout << "i: " << i << " j:" << j << std::endl;
                         tempBoard[i][j] = board[i][j];
                     }
                 }
-                char c = tempBoard[move.srow][move.scol];
-                tempBoard[move.srow][move.scol] = '-';
-                tempBoard[move.nrow][move.ncol] = c;
+                printf("6\n");
+                std::cout << "srow: " << moove.srow << " scol: " << moove.scol << "\n";
+                char c = tempBoard[moove.srow][moove.scol];
+                tempBoard[moove.srow][moove.scol] = '-';
+                tempBoard[moove.nrow][moove.ncol] = c;
                 std::vector<Move> possibleResponses = getPossibleResponses(tempBoard);
-                for(Move res : possibleResponses){
+                std::cout << "found responses\n";
+                for(int r = 0; r < possibleResponses.size(); r++){
+                    Move res = possibleResponses.at(r);
                     if(tempBoard[res.nrow][res.ncol] == 'k'){
                         // Illegal Move that Moves us into check
+                        std::cout << "found illegal move\n";
                     }
                     else{
-                        result.push_back(move);
+                        std::cout << "found legal move\n";
+                        result.push_back(moove);
+                        std::cout << "added legal move\n";
                     }
                 }
             }
+            printf("ended legal moves\n");
             return result;
         }
 
