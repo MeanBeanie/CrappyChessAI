@@ -124,7 +124,7 @@ class Board{
                     std::cout << "(" << r << ", " << c << ") is " << board[r][c] << "\n";
                     char ch = board[r][c];
                     Piece piece = cTP(ch);
-                    std::cout << piece.type << std::endl;
+                    // std::cout << piece.type << std::endl;
                     Move move;
                     move.srow = r;
                     move.scol = c;
@@ -334,33 +334,47 @@ class Board{
                                 int fc = c;
                                 while(pTE(fr).x != 0 && pTE(fc).y != 0){
                                     // std::cout << "P " << pTE(fr).x << ", " << pTE(fc).y << '\n';
+                                    std::cout << "1\n";
                                     if(board[fr-1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                        std::cout << "2\n";
                                         move.nrow = fr-1;
                                         move.ncol = fc+1;
                                         result.push_back(move);
+                                        std::cout << "3\n";
                                     }
                                     else if(isBlack((int)board[fr-1][fc+1])){
+                                        std::cout << "4\n";
                                         break;
                                     }
+                                    std::cout << "5\n";
                                     fr--;
                                     fc++;
+                                    std::cout << "6\n";
                                 }
                                 fr = r;
                                 fc = c;
+                                std::cout << "7\n";
                                 while(pTE(fr).y != 0 && pTE(fc).y != 0){
+                                    std::cout << "8\n";
                                     if(board[fr+1][fc+1] == '-' || !isBlack((int)board[fr-1][fc+1])){
+                                        std::cout << "9\n";
                                         move.nrow = fr+1;
                                         move.ncol = fc+1;
                                         result.push_back(move);
                                     }
                                     else if(isBlack((int)board[fr+1][fc+1])){
+                                        std::cout << "10\n";
                                         break;
                                     }
+                                    std::cout << "11\n";
                                     fr++;
                                     fc++;
+                                    std::cout << "12\n";
                                 }
+                                std::cout << "13\n";
                                 fr = r;
                                 fc = c;
+                                std::cout << "14\n";
                                 while(pTE(fr).x != 0 || pTE(fc).x != 0){
                                     if(board[fr-1][fc-1] == '-' || !isBlack((int)board[fr-1][fc-1])){
                                         move.nrow = fr-1;
@@ -384,6 +398,7 @@ class Board{
                                     fr++;
                                     fc--;
                                 }
+                                std::cout << "finished bishop\n";
                             }
                             break;
                         case Queen:
