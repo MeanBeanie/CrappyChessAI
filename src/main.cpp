@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 class Move{
     public:
@@ -51,7 +50,7 @@ class Board{
         }
         void PickRandomMove(){
             std::vector<Move> moves = GenerateLegalMoves();
-            std::cout << "Enter num between 0 and " << moves.size() << ": ";
+            std::cout << "Enter num between 0 and " << moves.size()-1 << ": ";
             int index = 0;
             std::cin >> index;
             MakeMove(moves.at(index));
@@ -273,6 +272,7 @@ class Board{
         std::vector<Move> GenerateLegalMoves(){
             std::vector<Move> result;
             std::vector<Move> possibleMoves = GenerateMoves(gameBoard);
+            std::vector<Move> ndResult;
             for(Move move : possibleMoves){
                 if(move.piece == '+'){
                     move.piece = gameBoard[move.spos[0]][move.spos[1]];
@@ -290,7 +290,6 @@ class Board{
                         // Illegal Move
                     }
                     else{
-                        std::cout << move.piece;
                         result.push_back(move);
                     }
                 }
